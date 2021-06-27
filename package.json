@@ -1,12 +1,9 @@
 {
   "name": "@tdrmk/avatarmaker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "generate random avatar images",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
-  "bin": {
-    "avatarmaker": "./bin/index.js"
-  },
   "keywords": [
     "random",
     "avatar",
@@ -16,7 +13,6 @@
     "avatarmaker"
   ],
   "dependencies": {
-    "commander": "^8.0.0",
     "xml": "^1.0.1"
   },
   "devDependencies": {},
