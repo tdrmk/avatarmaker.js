@@ -1,9 +1,8 @@
-const xml = require("xml");
-
 const maleData = require("./male.json");
 const femaleData = require("./female.json");
 
 const genders = ["male", "female"];
+
 /**
  * Generates an avatar and returns an SVG image.
  * features are chosen at random if `chosen_zones` is not specified.
@@ -23,7 +22,7 @@ function generateAvatar({ gender = null, chosen_zones = null } = {}) {
   const data = gender === "male" ? maleData : femaleData;
 
   const paths = [];
-  const defs = [];
+  const gradients = [];
 
   chosen_zones =
     chosen_zones && typeof chosen_zones === "object" ? chosen_zones : {};
@@ -50,11 +49,7 @@ function generateAvatar({ gender = null, chosen_zones = null } = {}) {
         // keep track of used gradients
         gradientsUsed.push(path.fill.match(/url\(#(.*)\)/)[1]);
 
-      paths.push({
-        path: {
-          _attr: path,
-        },
-      });
+      paths.push(`<path ${stringifyAttributes(path)}/>`);
     });
   });
 
@@ -62,44 +57,37 @@ function generateAvatar({ gender = null, chosen_zones = null } = {}) {
   Object.entries(data.gradients)
     .filter(([id]) => gradientsUsed.includes(id))
     .forEach(([id, gradient]) => {
-      defs.push({
-        [gradient.type === "linear" ? "linearGradient" : "radialGradient"]: [
-          {
-            _attr: { id, ...gradient.props },
-          },
-          ...gradient.stops.map((stop) => ({
-            stop: {
-              _attr: {
-                offset: stop.offset,
-                "stop-color": stop.color,
-                "stop-opacity": stop.opacity,
-              },
-            },
-          })),
-        ],
-      });
+      const stops = gradient.stops
+        .map((props) => `<stop ${stringifyAttributes(props)}/>`)
+        .join("");
+      const gradientTag =
+        gradient.type === "linear" ? "linearGradient" : "radialGradient";
+      const gradientAttrs = stringifyAttributes({ id, ...gradient.props });
+      gradients.push(
+        `<${gradientTag} ${gradientAttrs}>${stops}</${gradientTag}>`
+      );
     });
 
-  const svg = xml({
-    svg: [
-      {
-        _attr: {
-          xmlns: "http://www.w3.org/2000/svg",
-          viewBox: "0 0 200 200",
-          width: "200",
-          height: "200",
-        },
-      },
-      { defs },
-      ...paths,
-    ],
+  svgAttrs = stringifyAttributes({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 200 200",
+    width: "200",
+    height: "200",
   });
 
+  const defs = `<defs>${gradients.join("")}</defs>`;
+  const svg = `<svg ${svgAttrs}>${defs}${paths.join("")}</svg>`;
   return { svg, chosen_zones };
 }
 
 function choice(max) {
   return Math.floor(Math.random() * max);
+}
+
+function stringifyAttributes(props) {
+  return Object.entries(props)
+    .map(([key, value]) => `${key}='${value}'`)
+    .join(" ");
 }
 
 module.exports = { generateAvatar };

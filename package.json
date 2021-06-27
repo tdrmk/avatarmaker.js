@@ -1,6 +1,6 @@
 {
   "name": "@tdrmk/avatarmaker",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "generate random avatar images",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
@@ -12,13 +12,9 @@
     "generateavatar",
     "avatarmaker"
   ],
-  "dependencies": {
-    "xml": "^1.0.1"
-  },
+  "dependencies": {},
   "devDependencies": {},
-  "scripts": {
-    "test": "./bin/index.js > out.svg"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tdrmk/avatarmaker.js.git"

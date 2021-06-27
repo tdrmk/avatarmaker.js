@@ -108,7 +108,7 @@ const chosen_zones = {
 
 ```bash
 
-npx avatarmaker > output.svg
+npx avatarmake > output.svg
 
 ```
 
