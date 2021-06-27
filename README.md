@@ -1,6 +1,8 @@
 # Avatar Maker
 
-Generate random avatar images (in SVG format)
+Generate random avatar images (in SVG format).
+
+Inspired from [Free Avatar Maker](https://avatarmaker.com/).
 
 ## Installation
 
