@@ -3,3 +3,4 @@ node_modules
 !.gitignore
 !.nvmrc
 out.svg
+old_code
