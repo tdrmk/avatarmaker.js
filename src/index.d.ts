@@ -21,7 +21,7 @@ type ChosenZones = {
 
 type Gender = "male" | "female";
 
-export default function generateAvatar(options?: {
+export function generateAvatar(options?: {
   gender?: Gender;
   chosen_zones?: ChosenZones;
-}): string;
+}): { svg: string; chosen_zones: ChosenZones };
