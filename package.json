@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "generate random avatar images",
   "main": "./src/index.js",
+  "types": "./src/index.d.ts",
   "bin": {
     "avatarmaker": "./bin/index.js"
   },
