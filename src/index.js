@@ -3,8 +3,24 @@ const xml = require("xml");
 const maleData = require("./male.json");
 const femaleData = require("./female.json");
 
-function generateAvatar({ gender = "male", chosen_zones = null } = {}) {
-  const data = gender === "female" ? femaleData : maleData;
+const genders = ["male", "female"];
+/**
+ * Generates an avatar and returns an SVG image.
+ * features are chosen at random if `chosen_zones` is not specified.
+ * @param {Object} options
+ * @param {Gender} options.gender - generate avatar with specified gender, else chosen at random
+ * @param {ChosenZones} options.chosen_zones - generate avatar with specified features, rest are chosen at random
+ * @param {Object} options
+ *
+ * @returns {string}
+ */
+function generateAvatar({ gender = null, chosen_zones = null } = {}) {
+  if (!genders.includes(gender)) {
+    // randomly choose a gender if none is specified..
+    gender = genders[Math.floor(Math.random() * 2)];
+  }
+
+  const data = gender === "male" ? maleData : femaleData;
 
   const paths = [];
   const defs = [];
