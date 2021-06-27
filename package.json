@@ -1,0 +1,35 @@
+{
+  "name": "@tdrmk/avatarmaker",
+  "version": "1.0.0",
+  "description": "generate random avatar images",
+  "main": "./src/index.js",
+  "bin": {
+    "avatarmaker": "./bin/index.js"
+  },
+  "keywords": [
+    "random",
+    "avatar",
+    "generate-avatar",
+    "avatar-maker",
+    "generateavatar",
+    "avatarmaker"
+  ],
+  "dependencies": {
+    "commander": "^8.0.0",
+    "xml": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tdrmk/avatarmaker.js.git"
+  },
+  "author": "tdrk <tdrmk@pm.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tdrmk/avatarmaker.js/issues"
+  },
+  "homepage": "https://github.com/tdrmk/avatarmaker.js#readme"
+}
