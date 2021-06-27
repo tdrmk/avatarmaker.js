@@ -1,8 +1,93 @@
 # Avatar Maker
 
-Generate random avatar images (in SVG images)
+Generate random avatar images (in SVG format)
+
+## Installation
+
+```bash
+# Using yarn
+yarn add @tdrmk/avatarmaker
+
+# Using npm
+npm install @tdrmk/avatarmaker
+```
+
+## Usage
+
+Generate a random image (gender chosen at random).
+
+```js
+const { generateAvatar } = require("@tdrmk/avatarmaker");
+
+// generate a random avatar
+const { svg } = generateAvatar();
+
+// logs the svg image
+console.log(svg);
+```
+
+Generate a random image with specified gender (`male` or `female`).
+
+```js
+const { generateAvatar } = require("@tdrmk/avatarmaker");
+
+// generate a random male avatar
+const { svg } = generateAvatar({ gender: "male" });
+
+// logs the svg image
+console.log(svg);
+```
+
+Obtain features from generated image
+
+```js
+const { generateAvatar } = require("@tdrmk/avatarmaker");
+
+// generate a random avatar
+const { svg, chosen_zones } = generateAvatar();
+
+// logs the chosen features
+console.log(chosen_zones);
+
+// logs the svg image
+console.log(svg);
+```
+
+Generate an image with specified features
+
+```js
+const { generateAvatar } = require("@tdrmk/avatarmaker");
+
+const chosen_zones = {
+  backs: 7,
+  clothes: 1,
+  ears: 3,
+  faceshape: 9,
+  mouth: 14,
+  eyesiris: 5,
+  eyesfront: 8,
+  eyebrows: 3,
+  nose: 1,
+};
+
+// generate a random avatar
+const { svg } = generateAvatar({ gender: "male", chosen_zones });
+
+// logs the svg image
+console.log(svg);
+```
+
+### Generating random avatar images
+
+```bash
+
+npx avatarmaker > output.svg
+
+```
 
 ## Sample images
+
+Some randomly generated images
 
 ![Sample male 1](./sample/male_1.svg)
 ![Sample male 2](./sample/male_2.svg)
