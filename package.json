@@ -1,6 +1,6 @@
 {
   "name": "@tdrmk/avatarmaker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "generate random avatar images",
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
