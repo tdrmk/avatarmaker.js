@@ -32,6 +32,8 @@ function generateAvatar({ gender = null, chosen_zones = null } = {}) {
   Object.entries(data.elements).forEach(([zone, pathChoices]) => {
     // hairfront and hairback needs to use same index
     if (/^hair/.test(zone)) chosen_zones[zone] = chosen_zones["hairback"];
+    if (["eyesback", "eyesfront"].includes(zone))
+      chosen_zones[zone] = chosen_zones["eyesback"];
 
     if (!Number.isInteger(chosen_zones[zone]))
       chosen_zones[zone] = choice(pathChoices.length);
