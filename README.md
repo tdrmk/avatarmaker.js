@@ -79,6 +79,31 @@ const { svg } = generateAvatar({ gender: "male", chosen_zones });
 console.log(svg);
 ```
 
+All available features
+
+```js
+const chosen_zones = {
+  backs: 1,
+  hairback: 13,
+  humanbody: 0,
+  chinshadow: 5,
+  clothes: 11,
+  ears: 6,
+  faceshape: 11,
+  mouth: 13,
+  eyesback: 2,
+  eyesiris: 7,
+  eyesfront: 0,
+  facehighlight: 0,
+  eyebrows: 10,
+  nose: 2,
+  beard: 8,
+  mustache: 11,
+  hairfront: 13,
+  glasses: 2,
+};
+```
+
 ### Generating random avatar images
 
 ```bash
