@@ -58,7 +58,7 @@ function generateAvatar({ gender = null, chosen_zones = null } = {}) {
       );
     });
 
-  svgAttrs = stringifyAttributes({
+  const svgAttrs = stringifyAttributes({
     xmlns: "http://www.w3.org/2000/svg",
     viewBox: "0 0 200 200",
     width: "200",
