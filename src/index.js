@@ -3,16 +3,6 @@ const femaleData = require("./female.json");
 
 const genders = ["male", "female"];
 
-/**
- * Generates an avatar and returns an SVG image.
- * features are chosen at random if `chosen_zones` is not specified.
- * @param {Object} options
- * @param {Gender} options.gender - generate avatar with specified gender, else chosen at random
- * @param {ChosenZones} options.chosen_zones - generate avatar with specified features, rest are chosen at random
- * @param {Object} options
- *
- * @returns {string}
- */
 function generateAvatar({ gender = null, chosen_zones = null } = {}) {
   if (!genders.includes(gender)) {
     // randomly choose a gender if none is specified..
@@ -77,7 +67,7 @@ function generateAvatar({ gender = null, chosen_zones = null } = {}) {
 
   const defs = `<defs>${gradients.join("")}</defs>`;
   const svg = `<svg ${svgAttrs}>${defs}${paths.join("")}</svg>`;
-  return { svg, chosen_zones };
+  return { svg, gender, chosen_zones };
 }
 
 function choice(max) {

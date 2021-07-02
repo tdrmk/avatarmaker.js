@@ -1,9 +1,9 @@
 {
   "name": "@tdrmk/avatarmaker",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "generate random avatar images",
-  "main": "./src/index.js",
-  "types": "./src/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "keywords": [
     "random",
     "avatar",
@@ -12,9 +12,18 @@
     "generateavatar",
     "avatarmaker"
   ],
+  "files": [
+    "dist/"
+  ],
   "dependencies": {},
-  "devDependencies": {},
-  "scripts": {},
+  "devDependencies": {
+    "browserify": "^17.0.0"
+  },
+  "scripts": {
+    "preprepare": "rm -rf dist; mkdir -p dist",
+    "prepare": "browserify src/index.js --standalone AvatarMaker -o dist/index.js",
+    "postprepare": "cp src/index.d.ts dist/index.d.ts"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tdrmk/avatarmaker.js.git"

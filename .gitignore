@@ -4,3 +4,4 @@ node_modules
 !.nvmrc
 out.svg
 old_code
+dist

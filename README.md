@@ -14,6 +14,18 @@ yarn add @tdrmk/avatarmaker
 npm install @tdrmk/avatarmaker
 ```
 
+### CDN Links
+
+```html
+<script src="https://unpkg.com/@tdrmk/avatarmaker/dist/index.js" defer></script>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const { svg } = window.AvatarMaker.generateAvatar();
+    document.querySelector("#avatar").innerHTML = svg;
+  });
+</script>
+```
+
 ## Usage
 
 Generate a random image (gender chosen at random).
