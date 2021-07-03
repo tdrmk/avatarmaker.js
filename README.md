@@ -116,6 +116,20 @@ const chosen_zones = {
 };
 ```
 
+Using Avatar ID
+
+```js
+const { generateAvatar } = require("@tdrmk/avatarmaker");
+// generate a random avatar
+const { avatarId, svg } = generateAvatar({ gender: "male" });
+// Ex: avatarId = '1012136229674839'
+
+// some other code ...
+
+// later on regenerate same avatar, use the unique avatar id
+const { svg } = generateAvatar({ avatarId });
+```
+
 ### Generating random avatar images
 
 ```bash

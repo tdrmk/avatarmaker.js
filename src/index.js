@@ -3,7 +3,20 @@ const femaleData = require("./female.json");
 
 const genders = ["male", "female"];
 
-function generateAvatar({ gender = null, chosen_zones = null } = {}) {
+function generateAvatar({
+  gender = null,
+  chosen_zones = null,
+  avatarId = null,
+} = {}) {
+  if (typeof avatarId === "string") {
+    try {
+      // incase avatar id is specified, decode the gender and chosen_zones from id.
+      const { gender: _g, chosen_zones: _cz } = fromAvatarId(avatarId);
+      gender = _g;
+      chosen_zones = _cz;
+    } catch (err) {}
+  }
+
   if (!genders.includes(gender)) {
     // randomly choose a gender if none is specified..
     gender = genders[Math.floor(Math.random() * 2)];
@@ -67,7 +80,9 @@ function generateAvatar({ gender = null, chosen_zones = null } = {}) {
 
   const defs = `<defs>${gradients.join("")}</defs>`;
   const svg = `<svg ${svgAttrs}>${defs}${paths.join("")}</svg>`;
-  return { svg, gender, chosen_zones };
+
+  avatarId = toAvatarId(chosen_zones, gender);
+  return { svg, gender, chosen_zones, avatarId };
 }
 
 function choice(max) {
@@ -78,6 +93,62 @@ function stringifyAttributes(props) {
   return Object.entries(props)
     .map(([key, value]) => `${key}='${value}'`)
     .join(" ");
+}
+
+// generate an unique identifier for each avatar
+// (identified by fully populated chosen_zones)
+function toAvatarId(chosen_zones, gender) {
+  const data = gender === "male" ? maleData : femaleData;
+
+  const availableChoices = Object.fromEntries(
+    Object.entries(data.elements).map(([zone, pathChoices]) => {
+      return [zone, BigInt(pathChoices.length)];
+    })
+  );
+  // encode chosen_zones
+  let id = Object.keys(availableChoices).reduce((acc, zone) => {
+    return acc * availableChoices[zone] + BigInt(chosen_zones[zone]);
+  }, 0n);
+
+  // encode gender
+  id = id * 2n + (gender === "male" ? 0n : 1n);
+
+  // return as string
+  return id.toString();
+}
+
+// generate a fully populated chosen_zones object
+// from the specified unique identifier
+function fromAvatarId(id) {
+  id = BigInt(id);
+  let gender;
+
+  // decode gender
+  if (id % 2n === 1n) {
+    gender = "female";
+    id = (id - 1n) / 2n;
+  } else {
+    gender = "male";
+    id = id / 2n;
+  }
+
+  const data = gender === "male" ? maleData : femaleData;
+  const availableChoices = Object.fromEntries(
+    Object.entries(data.elements).map(([zone, pathChoices]) => {
+      return [zone, BigInt(pathChoices.length)];
+    })
+  );
+
+  // decode chosen_zones
+  const chosen_zones = {};
+  Object.keys(availableChoices)
+    .reverse()
+    .reduce((currID, zone) => {
+      chosen_zones[zone] = Number(currID % availableChoices[zone]);
+      return (currID - BigInt(chosen_zones[zone])) / availableChoices[zone];
+    }, id);
+
+  return { chosen_zones, gender };
 }
 
 module.exports = { generateAvatar };
