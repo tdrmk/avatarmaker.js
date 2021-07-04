@@ -47,3 +47,5 @@ export function generateAvatar(options?: {
   gender: Gender;
   avatarId: string;
 };
+
+export function chosenZonesLimit(gender: Gender): ChosenZones;

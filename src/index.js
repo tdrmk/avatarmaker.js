@@ -151,4 +151,14 @@ function fromAvatarId(id) {
   return { chosen_zones, gender };
 }
 
-module.exports = { generateAvatar };
+// returns make possible value for each zone
+function chosenZonesLimit(gender) {
+  const data = gender === "male" ? maleData : femaleData;
+  return Object.fromEntries(
+    Object.entries(data.elements).map(([zone, pathChoices]) => {
+      return [zone, pathChoices.length];
+    })
+  );
+}
+
+module.exports = { generateAvatar, chosenZonesLimit };
