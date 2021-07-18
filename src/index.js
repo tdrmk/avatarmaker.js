@@ -81,6 +81,11 @@ function generateAvatar({
   const defs = `<defs>${gradients.join("")}</defs>`;
   const svg = `<svg ${svgAttrs}>${defs}${paths.join("")}</svg>`;
 
+  // remove invalid chosen_zones
+  Object.keys(chosen_zones).forEach((zone) => {
+    if (!data.elements[zone]) delete chosen_zones[zone];
+  });
+
   avatarId = toAvatarId(chosen_zones, gender);
   return { svg, gender, chosen_zones, avatarId };
 }
